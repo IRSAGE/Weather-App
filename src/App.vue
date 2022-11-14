@@ -7,6 +7,11 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      api_key: "0a779abe3a448790cdbd45cfee943301",
+    };
+  },
 };
 </script>
 
