@@ -1,29 +1,29 @@
-# README
+# Weather-App
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Project setup
 
-### What is this repository for?
+```
+npm install
+```
 
-- Quick summary
-- Version
-- [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Compiles and hot-reloads for development
 
-### How do I get set up?
+```
+npm run serve
+```
 
-- Summary of set up
-- Configuration
-- Dependencies
-- Database configuration
-- How to run tests
-- Deployment instructions
+### Compiles and minifies for production
 
-### Contribution guidelines
+```
+npm run build
+```
 
-- Writing tests
-- Code review
-- Other guidelines
+### Lints and fixes files
 
-### Who do I talk to?
+```
+npm run lint
+```
 
-- Repo owner or admin
-- Other community or team contact
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
