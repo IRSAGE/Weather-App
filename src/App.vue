@@ -42,6 +42,9 @@
             <div class="weather">{{ weather.weather[0].main }}</div>
           </div>
         </div>
+        <div v-if="this.notFound == true" class="notfound">
+          <h2 class="notfound-text">No Weather Found!</h2>
+        </div>
       </main>
     </v-main>
   </v-app>
@@ -58,6 +61,7 @@ export default {
       url_base: "https://api.openweathermap.org/data/2.5/",
       query: "",
       weather: {},
+      notFound: false,
     };
   },
   methods: {
@@ -67,8 +71,14 @@ export default {
           .get(
             `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
           )
-          .then((res) => (this.weather = res.data))
-          .catch((err) => console.log(err));
+          .then((res) => {
+            this.notFound = false;
+            this.weather = res.data;
+          })
+          .catch(() => {
+            this.weather = {};
+            this.notFound = true;
+          });
       }
     },
     dateBuilder() {
@@ -163,5 +173,16 @@ main {
 }
 .weather-wrap {
   align-self: center;
+}
+.notfound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notfound-text {
+  color: #fff;
+  font-size: 50px;
+  font-weight: 700;
+  font-style: italic;
 }
 </style>
