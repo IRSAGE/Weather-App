@@ -42,7 +42,7 @@
             <div class="weather">{{ weather.weather[0].main }}</div>
           </div>
         </div>
-        <div v-if="this.notFound == true" class="notfound">
+        <div v-if="this.notFound" class="notfound">
           <h2 class="notfound-text">No Weather Found!</h2>
         </div>
       </main>
