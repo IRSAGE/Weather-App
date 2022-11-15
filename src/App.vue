@@ -30,7 +30,9 @@
     >
       <main>
         <WeatherComponent :weather="weather" />
-
+        <div v-if="this.loading == true" class="notfound">
+          <h2 class="notfound-text">Loading...</h2>
+        </div>
         <div v-if="this.notFound == true" class="notfound">
           <h2 class="notfound-text">No Weather Found!</h2>
         </div>
@@ -54,20 +56,25 @@ export default {
       query: "",
       weather: {},
       notFound: false,
+      loading: false,
     };
   },
   methods: {
     getWeather(e) {
       if (e.key == "Enter") {
+        this.weather = {};
+        this.loading = true;
         axios
           .get(
             `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
           )
           .then((res) => {
+            this.loading = false;
             this.notFound = false;
             this.weather = res.data;
           })
           .catch(() => {
+            this.loading = false;
             this.weather = {};
             this.notFound = true;
           });
