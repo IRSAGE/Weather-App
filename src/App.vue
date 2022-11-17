@@ -2,23 +2,29 @@
   <v-app>
     <v-app-bar absolute dark>
       <v-container light>
-        <v-row
-          style="max-width: 100%"
-          justify="space-between"
-          class="align-center"
-        >
-          <h1 class="float-left">Wheather App</h1>
+        <div class="d-flex justify-space-between align-center">
+          <div class="d-flex justify-space-between align-center">
+            <v-avatar class="profile" size="64" tile>
+              <v-img
+                src="https://www.freeiconspng.com/thumbs/weather-icon-png/weather-icon-png-2.png"
+              ></v-img>
+            </v-avatar>
+            <h1 class="float-left">Weather App</h1>
+          </div>
+
           <v-text-field
             label="Search"
             placeholder="Search city..."
             solo
+            single-line
             light
-            class="float-right align-center"
             style="max-width: 400px"
             v-model="query"
             @keypress="getWeather"
-          ></v-text-field></v-row
-      ></v-container>
+            class="input"
+          ></v-text-field>
+        </div>
+      </v-container>
     </v-app-bar>
     <v-main
       id="app"
@@ -30,11 +36,47 @@
     >
       <main>
         <WeatherComponent :weather="weather" />
-        <div v-if="this.loading == true" class="notfound">
-          <h2 class="notfound-text">Loading...</h2>
+        <div
+          v-if="this.loading"
+          class="d-flex justify-center align-center flex-column white--text"
+        >
+          <v-avatar class="profile" size="164" tile>
+            <v-img
+              src="https://harbourmaster.org/sites/default/files/2021-09/Sunrise_1.gif"
+            ></v-img>
+          </v-avatar>
+          <h2 class="font-weight-bold text-h4">Loading!</h2>
         </div>
-        <div v-if="this.notFound == true" class="notfound">
-          <h2 class="notfound-text">No Weather Found!</h2>
+        <div
+          v-if="this.notFound"
+          class="d-flex justify-center align-center flex-column white--text"
+        >
+          <v-avatar class="profile" size="164" tile>
+            <v-img
+              src="https://www.freeiconspng.com/thumbs/weather-icon-png/weather-icon-png-2.png"
+            >
+            </v-img>
+          </v-avatar>
+          <h2 class="font-weight-bold text-h3">No Weather Found!</h2>
+        </div>
+        <div
+          v-if="
+            !this.notFound &
+            (typeof weather.main == 'undefined') &
+            !this.loading
+          "
+          class="d-flex justify-center align-center flex-column white--text"
+        >
+          <v-avatar class="profile" size="164" tile>
+            <v-img
+              src="https://www.freeiconspng.com/thumbs/weather-icon-png/weather-icon-png-2.png"
+            ></v-img>
+          </v-avatar>
+          <h2 class="font-weight-bold text-h2">Welcome To Weather App</h2>
+          <p class="text-h6 mx-4 align-center">
+            You can search weather condition in any area by typing the name of
+            the city or country you want.
+          </p>
         </div>
       </main>
     </v-main>
@@ -63,6 +105,7 @@ export default {
     getWeather(e) {
       if (e.key == "Enter") {
         this.weather = {};
+        this.notFound = false;
         this.loading = true;
         axios
           .get(
@@ -91,9 +134,11 @@ export default {
   background-position: bottom;
   transition: 0.4s;
 }
+
 #app.warm {
   background-image: url("./assets/warm-bg.webp");
 }
+
 main {
   height: 100vh;
   padding: 15%;
@@ -103,16 +148,7 @@ main {
     rgba(0, 0, 0, 0.75)
   );
 }
-
-.notfound {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.notfound-text {
-  color: #fff;
-  font-size: 50px;
-  font-weight: 700;
-  font-style: italic;
+.input {
+  margin-top: 32px !important;
 }
 </style>
