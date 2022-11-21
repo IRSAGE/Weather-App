@@ -36,48 +36,13 @@
     >
       <main>
         <WeatherComponent :weather="weather" />
-        <div
-          v-if="this.loading"
-          class="d-flex justify-center align-center flex-column white--text"
-        >
-          <v-avatar class="profile" size="164" tile>
-            <v-img
-              src="https://harbourmaster.org/sites/default/files/2021-09/Sunrise_1.gif"
-            ></v-img>
-          </v-avatar>
-          <h2 class="font-weight-bold text-h4">Loading!</h2>
-        </div>
-        <div
-          v-if="this.notFound"
-          class="d-flex justify-center align-center flex-column white--text"
-        >
-          <v-avatar class="profile" size="164" tile>
-            <v-img
-              src="https://www.freeiconspng.com/thumbs/weather-icon-png/weather-icon-png-2.png"
-            >
-            </v-img>
-          </v-avatar>
-          <h2 class="font-weight-bold text-h3">No Weather Found!</h2>
-        </div>
-        <div
-          v-if="
-            !this.notFound &
-            (typeof weather.main == 'undefined') &
-            !this.loading
-          "
-          class="d-flex justify-center align-center flex-column white--text"
-        >
-          <v-avatar class="profile" size="164" tile>
-            <v-img
-              src="https://www.freeiconspng.com/thumbs/weather-icon-png/weather-icon-png-2.png"
-            ></v-img>
-          </v-avatar>
-          <h2 class="font-weight-bold text-h2">Welcome To Weather App</h2>
-          <p class="text-h6 mx-4 align-center">
-            You can search weather condition in any area by typing the name of
-            the city or country you want.
-          </p>
-        </div>
+        <LoadingComponent :loading="loading" />
+        <NotFound :not-found="notFound" />
+        <WelcomeComp
+          :loading="loading"
+          :not-found="notFound"
+          :weather="weather"
+        />
       </main>
     </v-main>
   </v-app>
@@ -86,10 +51,16 @@
 <script>
 import axios from "axios";
 import WeatherComponent from "./components/WeatherComponent.vue";
+import LoadingComponent from "./components/LoadingComponent.vue";
+import NotFound from "./components/NotFound.vue";
+import WelcomeComp from "./components/WelcomeComp.vue";
 export default {
   name: "App",
   components: {
     WeatherComponent,
+    LoadingComponent,
+    NotFound,
+    WelcomeComp,
   },
   data() {
     return {
