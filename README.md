@@ -26,4 +26,4 @@ npm run lint
 
 ### Visit Live Demo.
 
-See [Weather App](https://sibo-movies-app.netlify.app/).
+See [Weather App](https://sibo-weather-app.netlify.app/).
