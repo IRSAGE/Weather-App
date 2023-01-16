@@ -24,6 +24,6 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
+### Visit Live Demo.
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Weather App](https://sibo-movies-app.netlify.app/).
